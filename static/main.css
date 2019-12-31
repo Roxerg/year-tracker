@@ -1,0 +1,66 @@
+
+
+html {
+    background: black;
+}
+
+.container {
+    text-align: center;
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.canvas {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+
+
+.item {
+    display: inline-block;
+    border-style: solid;
+    border-radius: 5px 5px 5px;
+    border-width: 1px;
+    font-size: 5px;
+    margin: 2px;
+    width: 15px;
+    height: 15px;
+}
+
+.green {
+    border-color: lime;
+    background: #90ee90;
+}
+
+.orange {
+    border-color: orangered;
+    background: orange;
+}
+
+.yellow {
+    border-color: yellow;
+    background: yellowgreen;
+}
+
+.red {
+    border-color: red;
+    background: crimson;
+}
+
+.grey {
+    border-color: grey;
+    background: darkslategray;
+}
+
+.month {
+    font-size: 30px;
+    color: orangered;
+}
+
+.thing {
+    font-size: 20px;
+    color: yellow;
+}
