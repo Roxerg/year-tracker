@@ -15,7 +15,7 @@ app = Flask(__name__)
 def home():
 
     today = goaldb.fetch_today()
-    today = checked_unchecked(today)
+    today = checked_unchecked(today[0])
     daily = goaldb.fetch_all_daily()
     week = goaldb.fetch_current_week()
 
@@ -39,7 +39,7 @@ def mark_today():
 
     goaldb.update_day(reading, exercise, sleep)
 
-    return redirect(request.url)
+    return redirect("/")
 
 @app.route('/update/month', methods=['GET'])
 def mark_month():
@@ -50,17 +50,34 @@ def mark_month():
 
     goaldb.update_month(alcohol, meal, resist)
 
-    return redirect(request.url)
+    return redirect("/")
 
 def checked_unchecked(e):
 
     a,b,c = "unchecked","unchecked","unchecked"
+
+    print(e)
+    print(e)
+    print(e)
+    print(e)
+    print(e)
+    print(e)
+    print(e)
     try:
         if int(e[1]) > 0: a = "checked"
-        if int(e[2]) > 0: b = "checked"
-        if int(e[3]) > 0: c = "checked"
     except:
         pass
+
+    try:
+        if int(e[2]) > 0: b = "checked"
+    except:
+        pass
+
+    try:
+        if int(e[3]) > 0: c = "checked"
+    except: 
+        pass
+
 
     return [a,b,c]
 

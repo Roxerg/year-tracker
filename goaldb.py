@@ -199,7 +199,7 @@ def update_day(reading, exercise, sleep):
     update_daily = """
     UPDATE daily_goals 
     SET reading=reading+%s, exercise=exercise+%s, proper_sleep=proper_sleep+%s
-    WHERE EXTRACT(DOY FROM NOW()) = EXTRACT(DOY FROM TIMESTAMP day)
+    WHERE EXTRACT(DOY FROM NOW()) = EXTRACT(DOY FROM day)
     AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day);  
     """
 
@@ -219,24 +219,24 @@ def update_month(alcohol, meal, resist):
     execute_query(update_monthly, (alcohol, meal, resist))
 
 def fetch_all_daily():
-    omg = "SELECT * FROM daily_goals"
+    omg = "SELECT * FROM daily_goals ORDER BY id"
     return execute_query_no_args(omg)
 
 def fetch_all_monthly():
-    omg = "SELECT * FROM monthly_goals"
+    omg = "SELECT * FROM monthly_goals ORDER BY id"
     return execute_query_no_args(omg)
 
 def fetch_current_week():
     get = """SELECT * FROM daily_goals 
     WHERE EXTRACT(WEEK FROM day) = EXTRACT(WEEK FROM NOW())
-    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day); """
+    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day) ORDER BY id; """
     return execute_query_no_args(get)
 
 
 def fetch_current_month():
     get = """SELECT * FROM daily_goals 
     WHERE EXTRACT(MONTH FROM day) = EXTRACT(MONTH FROM now)
-    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day); """
+    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day) ORDER BY id; """
     return execute_query_no_args(get)
 
 
@@ -244,5 +244,5 @@ def fetch_today():
     get = """SELECT * FROM daily_goals 
     WHERE EXTRACT(DOY FROM day) = EXTRACT(DOY FROM NOW())
     AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day)
-    LIMIT 1; """
+    ORDER BY id LIMIT 1; """
     return execute_query_no_args(get)

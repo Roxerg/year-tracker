@@ -13,13 +13,19 @@
 
         <div class="container">
                 <div class="pushbutton {{today[0]}}">
-                    <span class="foremoji span{{today[0]}}"><a href="/">📖</a></span>
+                    <span class="foremoji span{{today[0]}}">
+                        <a id="reading" href="/update/day?reading=15">📖</a>
+                    </span>
                 </div>
                 <div class="pushbutton {{today[1]}}">
-                    <span class="foremoji span{{today[1]}}">🥊</span>
+                    <span class="foremoji span{{today[1]}}">
+                        <a id="reading" href="/update/day?exercise=15">🥊</a>
+                    </span>
                 </div>
                 <div class="pushbutton {{today[2]}}">
-                    <span class="foremoji span{{today[2]}}">💤</span>
+                    <span class="foremoji span{{today[2]}}">
+                        <a id="sleep" href="/update/day?sleep=15">💤</a>
+                    </span>
                 </div>
         </div>
 
@@ -92,6 +98,39 @@
 </html>
 
 <script>
+
+function add_read(sign) {
+
+    var elem = document.getElementsByClassName("count-read")[0];
+    var val = parseInt(elem.innerHTML) + sign*15;
+    elem.innerHTML = val;
+
+    elem = document.getElementById("reading");
+    elem.href = "/update/day?reading=" + val.toString();
+
+}
+
+function add_exercise(sign) {
+
+    var elem = document.getElementsByClassName("count-exercise")[0];
+    var val = parseInt(elem.innerHTML) + sign*15;
+    elem.innerHTML = val;
+
+    elem = document.getElementById("exercise");
+    elem.href = "/update/day?exercise=" + val.toString();
+
+}
+
+function add_sleep(sign) {
+
+    var elem = document.getElementsByClassName("count-sleep")[0];
+    var val = parseInt(elem.innerHTML) + sign;
+    elem.innerHTML = val;
+
+    elem = document.getElementById("sleep");
+    elem.href = "/update/day?sleep=" + val.toString();
+
+}
 
 
 
