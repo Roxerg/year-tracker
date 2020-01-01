@@ -9,6 +9,8 @@ import goaldb
 
 app = Flask(__name__)
 
+app.config.from_json("config.json")
+
 
 
 @app.route('/')

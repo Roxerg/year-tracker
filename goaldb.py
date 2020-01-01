@@ -2,13 +2,15 @@ import psycopg2
 import asyncio
 
 
-
+from flask import current_app
 
 def connect():
-    conn = psycopg2.connect(host="localhost",
-                            database="newyear", 
-                            user="resolutions", 
-                            password="mongol111")
+
+
+    conn = psycopg2.connect(host=current_app.config.DB_HOST,
+                            database=current_app.config.DB_DB, 
+                            user=current_app.config.USER, 
+                            password=current_app.config.PASSWORD)
     cur = conn.cursor()
 
     return conn, cur
