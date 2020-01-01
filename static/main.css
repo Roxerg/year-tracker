@@ -2,6 +2,66 @@
 
 html {
     background: black;
+    
+}
+
+span {
+    display: inline;
+}
+
+a {
+    all: unset;
+}
+
+.foremoji {
+    display: inline-block;
+    font-size: 2.8em;
+    margin-bottom: auto;
+}
+
+
+
+.countercontainer {
+    display: inline-block;
+    border-style: solid;
+    font-size: 1em;
+    margin: 2px;
+    width: 4em;
+    height: 1.1em;
+    color: white;
+}
+
+
+.pushbutton {
+    display: inline-block;
+    border-style: solid;
+    border-radius: 5px 5px 5px;
+    border-width: 2px;
+    margin: 0.2em;
+    width: 4em;
+    height: 4em;
+    border-color: rgb(206, 206, 96);
+    background: yellowgreen;
+}
+
+.checked {
+    border-color: rgb(206, 206, 96);
+    background: green;
+    opacity: 100%;
+}
+
+.spanchecked {
+    opacity: 1;
+}
+
+.unchecked {
+    border-color: rgb(206, 206, 96);
+    background: rgba(233, 233, 129, 0.596);
+    
+}
+
+.spanunchecked {
+    opacity: 0.6;
 }
 
 .container {
@@ -24,35 +84,42 @@ html {
     border-style: solid;
     border-radius: 5px 5px 5px;
     border-width: 1px;
-    font-size: 5px;
-    margin: 2px;
+    font-size: 10px;
+    margin: 0px;
     width: 15px;
     height: 15px;
 }
 
+
+/* 3/3 */
 .green {
-    border-color: lime;
+    border-color: darkgreen;
     background: #90ee90;
 }
 
+/* 2/3 */
 .orange {
-    border-color: orangered;
-    background: orange;
+    border-color: #35a835;
+    background: #90ee90;
 }
 
+/* 1/3 */
 .yellow {
-    border-color: yellow;
+    border-color: #98c998;
     background: yellowgreen;
 }
 
+/* 0/3 */
 .red {
     border-color: red;
     background: crimson;
 }
 
+/* not yet reached */
 .grey {
     border-color: grey;
     background: darkslategray;
+    opacity: 70%;
 }
 
 .month {
@@ -63,4 +130,22 @@ html {
 .thing {
     font-size: 20px;
     color: yellow;
+}
+
+
+
+/* addition removal */
+
+.rem-read, .rem-exercise, .rem-sleep {
+    font-weight: 900;
+    color: red;
+}
+
+.count-read, .count-exercise, .count-sleep {
+    font-weight: bold;
+}
+
+.add-read, .add-exercise, .add-sleep {
+    font-weight: 900;
+    color: green;
 }

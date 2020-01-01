@@ -7,15 +7,60 @@
 
 <body>
     <div class="canvas">
-        <div class="container month">YEAR PROGRESS</div>
-        
-        
+
+        <!-- TODAY MENU -->
+        <div class="container thing">Today</div>
+
         <div class="container">
-            {% for d in daily %}
-                <div class="item {{d}}"></div>
-            {% endfor %}
+                <div class="pushbutton {{today[0]}}">
+                    <span class="foremoji span{{today[0]}}"><a href="/">📖</a></span>
+                </div>
+                <div class="pushbutton {{today[1]}}">
+                    <span class="foremoji span{{today[1]}}">🥊</span>
+                </div>
+                <div class="pushbutton {{today[2]}}">
+                    <span class="foremoji span{{today[2]}}">💤</span>
+                </div>
         </div>
 
+        <div class="container">
+                <div class="countercontainer">
+                    <span class="rem-read" onclick="add_read(-1)">-</span>
+                    <span class="count-read">15</span>
+                    <span class="add-read" onclick="add_read(1)">+</span>
+                </div>
+
+                <div class="countercontainer">
+                    <span class="rem-exercise" onclick="add_exercise(-1)">-</span>
+                    <span class="count-exercise">15</span>
+                    <span class="add-exercise" onclick="add_exercise(1)">+</span>
+                </div>
+
+                <div class="countercontainer">
+                    <span class="rem-sleep" onclick="add_sleep(-1)">-</span>
+                    <span class="count-sleep">23</span>
+                    <span class="add-sleep" onclick="add_sleep(1)">+</span>
+                </div>
+        </div>
+        <!-- TODAY END -->
+
+        <!-- MONTH MENU -->
+        <div class="container thing">Month</div>
+
+        <div class="container">
+                <div class="pushbutton">
+                    <span class="foremoji">🍺</span>
+                </div>
+                <div class="pushbutton">
+                    <span class="foremoji">🍱</span>
+                </div>
+                <div class="pushbutton">
+                    <span class="foremoji">💀</span>
+                </div>
+        </div>
+        <!-- MONTH END -->
+
+        <!-- WEEK DISPLAY -->
         <div class="container thing">This Week</div>
 
         <div class="container">
@@ -23,6 +68,19 @@
                 <div class="item {{d}}"></div>
             {% endfor %}
         </div>
+        <!-- WEEK END -->
+
+        <!-- YEAR DISPLAY -->
+        <div class="container month">This Year</div>
+        
+        <div class="container">
+            {% for d in range(0, lonk) %}
+                <div class="item {{daily[d]}}">{{data[d][0]}}</div>
+            {% endfor %}
+        </div>
+        <!-- YEAR END -->
+
+        
 
     </div>
 </body>
@@ -32,3 +90,9 @@
 
 
 </html>
+
+<script>
+
+
+
+</script>

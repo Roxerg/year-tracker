@@ -238,3 +238,11 @@ def fetch_current_month():
     WHERE EXTRACT(MONTH FROM day) = EXTRACT(MONTH FROM now)
     AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day); """
     return execute_query_no_args(get)
+
+
+def fetch_today():
+    get = """SELECT * FROM daily_goals 
+    WHERE EXTRACT(DOY FROM day) = EXTRACT(DOY FROM NOW())
+    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day)
+    LIMIT 1; """
+    return execute_query_no_args(get)

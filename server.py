@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, escape, request, render_template, url_for
+from flask import Flask, escape, request, render_template, url_for, redirect
 import json
 from datetime import datetime
 
@@ -14,20 +14,64 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
+    today = goaldb.fetch_today()
+    today = checked_unchecked(today)
     daily = goaldb.fetch_all_daily()
     week = goaldb.fetch_current_week()
 
     print(week)
-    
+
     return render_template("home.html", daily=color_picker(daily),
-                                        week=color_picker(week))
+                                        week=color_picker(week),
+                                        data=daily,
+                                        lonk=len(daily),
+                                        today=today)
+
+
+
+
+@app.route('/update/day', methods=['GET'])
+def mark_today():
+
+    reading = request.args.get('reading', '0')
+    exercise = request.args.get('exercise', '0')
+    sleep = request.args.get('sleep', '0')
+
+    goaldb.update_day(reading, exercise, sleep)
+
+    return redirect(request.url)
+
+@app.route('/update/month', methods=['GET'])
+def mark_month():
+
+    alcohol = request.args.get('alcohol', '0')
+    meal = request.args.get('meal', '0')
+    resist = request.args.get('resist', '0')
+
+    goaldb.update_month(alcohol, meal, resist)
+
+    return redirect(request.url)
+
+def checked_unchecked(e):
+
+    a,b,c = "unchecked","unchecked","unchecked"
+    try:
+        if int(e[1]) > 0: a = "checked"
+        if int(e[2]) > 0: b = "checked"
+        if int(e[3]) > 0: c = "checked"
+    except:
+        pass
+
+    return [a,b,c]
+
+
 
 
 def color_picker(daily):
     color = []
     day_of_year = datetime.now().timetuple().tm_yday
     for d in daily:
-        if day_of_year > d[0]:
+        if day_of_year < d[0]:
             color.append("grey")
         else:
             count = 0
