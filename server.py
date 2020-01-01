@@ -11,6 +11,9 @@ app = Flask(__name__)
 
 app.config.from_json("config.json")
 
+# Externally Visible Server
+# app.run(host='0.0.0.0')
+
 
 
 @app.route('/')
