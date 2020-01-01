@@ -7,10 +7,10 @@ from flask import current_app
 def connect():
 
 
-    conn = psycopg2.connect(host=current_app.config.DB_HOST,
-                            database=current_app.config.DB_DB, 
-                            user=current_app.config.USER, 
-                            password=current_app.config.PASSWORD)
+    conn = psycopg2.connect(host=current_app.config["DB_HOST"],
+                            database=current_app.config["DB_DB"], 
+                            user=current_app.config["DB_USER"], 
+                            password=current_app.config["DB_PASSWORD"])
     cur = conn.cursor()
 
     return conn, cur
@@ -213,7 +213,7 @@ def update_month(alcohol, meal, resist):
 
     update_monthly = """
     UPDATE monthly_goals
-    SET alcohol=alcohol+%s, meal_preps=meal_preps+%s, resist=resist+%s,
+    SET alcohol=alcohol+%s, meal_preps=meal_preps+%s, resist=resist+%s
     WHERE EXTRACT(MONTH FROM NOW()) = EXTRACT(MONTH FROM month)
     AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM month); 
     """
@@ -236,9 +236,9 @@ def fetch_current_week():
 
 
 def fetch_current_month():
-    get = """SELECT * FROM daily_goals 
-    WHERE EXTRACT(MONTH FROM day) = EXTRACT(MONTH FROM now)
-    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day) ORDER BY id; """
+    get = """SELECT * FROM monthly_goals 
+    WHERE EXTRACT(MONTH FROM month) = EXTRACT(MONTH FROM NOW())
+    AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM month) ORDER BY id; """
     return execute_query_no_args(get)
 
 

@@ -55,13 +55,33 @@
 
         <div class="container">
                 <div class="pushbutton">
-                    <span class="foremoji">🍺</span>
+                    <span class="foremoji">
+                        <a id="alcohol" href="/update/month?alcohol=1">🍺</a>
+                    </span>
                 </div>
                 <div class="pushbutton">
-                    <span class="foremoji">🍱</span>
+                    <span class="foremoji">
+                        <a id="meal" href="/update/month?meal=1">🍱</a>
+                    </span>
                 </div>
                 <div class="pushbutton">
-                    <span class="foremoji">💀</span>
+                    <span class="foremoji">
+                        <a id="resist" href="/update/month?resist=1">💀</a>
+                    </span>
+                </div>
+        </div>
+
+        <div class="container">
+                <div class="countercontainer">
+                    <span class="alcohol-count">{{month[1]}}</span>
+                </div>
+
+                <div class="countercontainer">
+                    <span class="meal-count">{{month[2]}}</span>
+                </div>
+
+                <div class="countercontainer">
+                    <span class="resist-count">{{month[3]}}</span>
                 </div>
         </div>
         <!-- MONTH END -->

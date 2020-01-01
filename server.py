@@ -21,13 +21,16 @@ def home():
     daily = goaldb.fetch_all_daily()
     week = goaldb.fetch_current_week()
 
+    month = goaldb.fetch_current_month()[0]
+
     print(week)
 
     return render_template("home.html", daily=color_picker(daily),
                                         week=color_picker(week),
                                         data=daily,
                                         lonk=len(daily),
-                                        today=today)
+                                        today=today,
+                                        month=month)
 
 
 
