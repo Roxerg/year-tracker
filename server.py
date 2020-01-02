@@ -16,6 +16,8 @@ app.config.from_json("config.json")
 
 
 
+
+
 @app.route('/')
 def home():
 
@@ -34,6 +36,8 @@ def home():
                                         lonk=len(daily),
                                         today=today,
                                         month=month)
+
+
 
 
 
@@ -121,3 +125,32 @@ def init():
     goaldb.populate_tables()
 
     return json.dumps("done!")
+
+
+
+@app.route('/login', methods=['GET'])
+def login():
+
+
+    return render_template("login.html")
+
+
+
+@app.route("/guest", methods=['GET'])
+def guest():
+
+    
+    today = goaldb.fetch_today()
+    today = checked_unchecked(today[0])
+    daily = goaldb.fetch_all_daily()
+    week = goaldb.fetch_current_week()
+
+    month = goaldb.fetch_current_month()[0]
+
+
+    return render_template("guest.html",  daily=color_picker(daily),
+                                          week=color_picker(week),
+                                          data=daily,
+                                          lonk=len(daily),
+                                          today=today,
+                                          month=month)

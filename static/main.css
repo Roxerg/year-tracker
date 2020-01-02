@@ -20,6 +20,10 @@ a {
 }
 
 
+.white {
+    color: white;
+}
+
 
 .countercontainer {
     display: inline-block;
@@ -93,14 +97,14 @@ a {
 
 /* 3/3 */
 .green {
-    border-color: darkgreen;
-    background: #90ee90;
+    border-color: green;
+    background: darkgreen;
 }
 
 /* 2/3 */
 .orange {
-    border-color: #35a835;
-    background: #90ee90;
+    border-color: yellowgreen;
+    background: yellow;
 }
 
 /* 1/3 */
