@@ -2,6 +2,7 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 
@@ -9,9 +10,9 @@
     <div class="canvas">
 
 
-        <body>
-            <canvas id="glCanvas" width="640" height="480"></canvas>
-        </body>
+    
+        <!-- <canvas id="glCanvas" width="640" height="480"></canvas> -->
+        
         <!-- TODAY MENU -->
         <div class="container thing">Today</div>
 
@@ -28,28 +29,40 @@
                 </div>
                 <div class="pushbutton {{today[2]}}">
                     <span class="foremoji span{{today[2]}}">
-                        <a id="sleep" href="/update/day?sleep=15">💤</a>
+                        <a id="sleep" href="/update/day?sleep=23">💤</a>
                     </span>
                 </div>
         </div>
 
         <div class="container">
                 <div class="countercontainer">
-                    <span class="rem-read" onclick="add_read(-1)">-</span>
-                    <span class="count-read">15</span>
-                    <span class="add-read" onclick="add_read(1)">+</span>
+                    <table class="tableboi" cellpadding="0" cellspacing="0">
+                        <tr>
+                    <td class="rem-read" onclick="add_read(-1)"></td>
+                    <td class="count-read">15                   </td>
+                    <td class="add-read" onclick="add_read(1)"> </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="countercontainer">
-                    <span class="rem-exercise" onclick="add_exercise(-1)">-</span>
-                    <span class="count-exercise">15</span>
-                    <span class="add-exercise" onclick="add_exercise(1)">+</span>
+                    <table class="tableboi" cellpadding="0" cellspacing="0">
+                        <tr>
+                    <td class="rem-exercise" onclick="add_exercise(-1)"></td>
+                    <td class="count-exercise">15                       </td>
+                    <td class="add-exercise" onclick="add_exercise(1)"> </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="countercontainer">
-                    <span class="rem-sleep" onclick="add_sleep(-1)">-</span>
-                    <span class="count-sleep">23</span>
-                    <span class="add-sleep" onclick="add_sleep(1)">+</span>
+                    <table class="tableboi" cellpadding="0" cellspacing="0">
+                        <tr>
+                    <td class="rem-sleep" onclick="add_sleep(-1)"></td>
+                    <td class="count-sleep">23                    </td>
+                    <td class="add-sleep" onclick="add_sleep(1)"> </td>
+                        </tr>
+                    </table>
                 </div>
         </div>
         <!-- TODAY END -->
@@ -105,7 +118,8 @@
         
         <div class="container">
             {% for d in range(0, lonk) %}
-                <div class="item {{daily[d]}}">{{data[d][0]}}</div>
+                
+                <div class="item {{daily[d]}} {% if today_data[4] == data[d][4] %} year_today {% endif %}"><!--{/{data[d][0]}/}--></div>
             {% endfor %}
         </div>
         <!-- YEAR END -->
@@ -120,6 +134,24 @@
 
 
 </html>
+
+<!-- DEBUG -->
+<script>
+    console.log('{{today}}');
+    var data = '{{data}}';
+    var today_data = '{{today_data}}';
+
+    data = data.split("&#39;").join("\"");
+    today_data = today_data.split("&#39;").join("\"");
+    
+    data = JSON.parse(data);
+    //today_data = JSON.parse(today_data);
+
+    console.log(data);
+    console.log(today_data);
+</script>
+
+
 
 <script>
 

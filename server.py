@@ -16,23 +16,36 @@ app.config.from_json("config.json")
 
 
 
+def convert_dates(e):
+
+    e = list(e)
+    e[4] = e[4].strftime("%Y-%m-%d")
+
+    return e
+
 
 
 @app.route('/')
 def home():
 
-    today = goaldb.fetch_today()
-    today = checked_unchecked(today[0])
+    today_data = goaldb.fetch_today()
+    today = checked_unchecked(today_data[0])
     daily = goaldb.fetch_all_daily()
     week = goaldb.fetch_current_week()
 
     month = goaldb.fetch_current_month()[0]
 
+    data = list(daily)
+    data = list(map(convert_dates, data))
+
+    today_data = list(map(convert_dates, today_data))[0]
+
     print(week)
 
     return render_template("home.html", daily=color_picker(daily),
                                         week=color_picker(week),
-                                        data=daily,
+                                        data=data,
+                                        today_data=today_data,
                                         lonk=len(daily),
                                         today=today,
                                         month=month)

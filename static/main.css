@@ -1,7 +1,14 @@
 
 
+
+@viewport {
+    width: device-width ;
+    zoom: 1.0 ;
+}
+
 html {
-    background: black;
+    background: #37474f;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
     
 }
 
@@ -25,31 +32,35 @@ a {
 }
 
 
-.countercontainer {
-    display: inline-block;
-    border-style: solid;
-    font-size: 1em;
-    margin: 2px;
-    width: 4em;
-    height: 1.1em;
-    color: white;
-}
-
 
 .pushbutton {
     display: inline-block;
-    border-style: solid;
-    border-radius: 5px 5px 5px;
-    border-width: 2px;
+    border-style: solid; 
+    border-radius: 5px; 
+    border-color: transparent;
+    border-width: 2px; 
     margin: 0.2em;
     width: 4em;
     height: 4em;
-    border-color: rgb(206, 206, 96);
     background: yellowgreen;
+
+    padding:0.5em 0.5em;
+    border-radius:0.15em;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+
+    transition: border-color 0.2s, background-color 0.5s;
+}
+
+.pushbutton:hover{
+    border-color: rgba(255,255,255,1);
+    
+}
+
+.pushbutton:hover {
+    background-color: purple;
 }
 
 .checked {
-    border-color: rgb(206, 206, 96);
     background: green;
     opacity: 100%;
 }
@@ -59,7 +70,6 @@ a {
 }
 
 .unchecked {
-    border-color: rgb(206, 206, 96);
     background: rgba(233, 233, 129, 0.596);
     
 }
@@ -87,69 +97,153 @@ a {
     display: inline-block;
     border-style: solid;
     border-radius: 5px 5px 5px;
-    border-width: 1px;
+    border-width: 2px;
+    border-color: transparent;
     font-size: 10px;
+    font-display: none;
     margin: 0px;
     width: 15px;
     height: 15px;
+    color: transparent;
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.item:hover {
+    background-color: white;
 }
 
 
 /* 3/3 */
 .green {
-    border-color: green;
+    /* border-color: green; */
     background: darkgreen;
 }
 
 /* 2/3 */
 .orange {
-    border-color: yellowgreen;
+    /* border-color: yellowgreen; */
     background: yellow;
 }
 
 /* 1/3 */
 .yellow {
-    border-color: #98c998;
+    /* border-color: #98c998; */
     background: yellowgreen;
 }
 
 /* 0/3 */
 .red {
-    border-color: red;
+    /* border-color: red; */
     background: crimson;
 }
 
 /* not yet reached */
 .grey {
-    border-color: grey;
-    background: darkslategray;
+    background: #62727b;
     opacity: 70%;
 }
 
 .month {
     font-size: 30px;
-    color: orangered;
+    color: #ffffff;
 }
 
 .thing {
     font-size: 20px;
-    color: yellow;
+    color: #ffffff;
+}
+
+.year_today {
+    border-color: white;
+    -webkit-animation: pulse 3s infinite;
 }
 
 
 
 /* addition removal */
 
+.countercontainer {
+    display: inline-block; 
+    border-style: solid;
+    border-color: rgba(255,255,255,0.05);
+    font-size: 1em;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 5em;
+    height: 1.5em;
+    color: white;
+    /* padding:0.5em 0.5em;*/
+}
+
+
 .rem-read, .rem-exercise, .rem-sleep {
-    font-weight: 900;
     color: red;
+    background-color: red;
+    font-weight: 900;
+    font-size: 0.8em;
+    width: 33%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    border-radius:0.15em;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+
+    transition: border-color 0.2s, background-color 0.5s;
+    
 }
 
 .count-read, .count-exercise, .count-sleep {
-    font-weight: bold;
+    color: white;
+    background-color: transparent;
+    font-weight: 900;
+    font-size: 0.8em;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
 }
 
 .add-read, .add-exercise, .add-sleep {
-    font-weight: 900;
     color: green;
+    background-color: green;
+    font-weight: 900;
+    font-size: 0.8em;
+    width: 33%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+
+    border-radius:0.15em;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+
+    transition: border-color 0.2s, background-color 0.5s;
+}
+
+.add-read:hover, .add-exercise:hover, .add-sleep:hover .rem-read:hover, .rem-exercise:hover, .rem-sleep:hover {
+    border-color: rgba(255,255,255,1);
+    background-color: purple;
+}
+
+
+.tableboi {
+    width : 100%;
+    height: 100%;
+}
+
+  
+@keyframes pulse
+{
+  0% {
+    border-color: transparent
+  }
+  50% {
+    border-color: white
+  }
+  100% {
+    border-color: transparent
+  }
 }
