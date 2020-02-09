@@ -51,12 +51,29 @@ a {
     transition: border-color 0.2s, background-color 0.5s;
 }
 
-.pushbutton:hover{
+.pushbuttonlogin {
+    display: inline-block;
+    border-style: solid; 
+    border-radius: 5px; 
+    border-color: transparent;
+    border-width: 2px; 
+    width: 5em;
+    height: 2.3em;
+    background: yellowgreen;
+
+    border-radius:0.15em;
+    font-weight: bold;
+    box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+
+    transition: border-color 0.2s, background-color 0.5s;
+}
+
+.pushbutton:hover, .pushbuttonlogin:hover{
     border-color: rgba(255,255,255,1);
     
 }
 
-.pushbutton:hover {
+.pushbutton:hover, .pushbuttonlogin:hover {
     background-color: purple;
 }
 
@@ -147,6 +164,12 @@ a {
 .month {
     font-size: 30px;
     color: #ffffff;
+}
+
+.usrpass {
+    font-size: 18px;
+    color:#ffffff;
+    opacity: 0.4;
 }
 
 .thing {

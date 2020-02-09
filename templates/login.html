@@ -10,8 +10,16 @@
     <div class="canvas">
 
         <div class="container">
-            <input type="password" name="pwd">
-            <button>Log In</button>
+            <div>{{incorrect_attempt}}</div>
+            <br>
+            <form method="POST">
+            <div class="usrpass">username</div>
+            <input type="text" name="username">
+            <div class="usrpass">password</div>
+            <input type="password" name="password">
+            <br><br>
+            <input type="submit" value="Log In" class="pushbuttonlogin"></input>
+            </form>
         </div>
 
     </div>

@@ -1,18 +1,33 @@
 import os
-
-from flask import Flask, escape, request, render_template, url_for, redirect
 import json
 from datetime import datetime
 
+from werkzeug.urls import url_parse
 
+# Flask
+from flask import Flask, escape, request, render_template, url_for, redirect, abort, session, flash
+from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import LoginManager
+
+
+# This Application 
 import goaldb
+from models import User, getUser
 
-app = Flask(__name__)
-
-app.config.from_json("config.json")
 
 # Externally Visible Server
 # app.run(host='0.0.0.0')
+
+
+app = Flask(__name__)
+
+login_manager = LoginManager(app)   
+login_manager.login_view = 'login'
+login_manager.init_app(app)
+app.config.from_json("config.json")
+
+# </dev/urandom tr -dc 'A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~' | head -c 13  ; echo
+app.secret_key = "b8*'ER#~P'>qn#~<rD<T1.]!b2){"
 
 
 
@@ -24,8 +39,17 @@ def convert_dates(e):
     return e
 
 
-
 @app.route('/')
+def root():
+    if not current_user.is_authenticated:
+        return redirect(url_for('guest'))
+    else:
+        return redirect(url_for('home'))
+
+
+
+@app.route('/home')
+@login_required
 def home():
 
     today_data = goaldb.fetch_today()
@@ -81,13 +105,6 @@ def checked_unchecked(e):
 
     a,b,c = "unchecked","unchecked","unchecked"
 
-    print(e)
-    print(e)
-    print(e)
-    print(e)
-    print(e)
-    print(e)
-    print(e)
     try:
         if int(e[1]) > 0: a = "checked"
     except:
@@ -141,14 +158,6 @@ def init():
 
 
 
-@app.route('/login', methods=['GET'])
-def login():
-
-
-    return render_template("login.html")
-
-
-
 @app.route("/guest", methods=['GET'])
 def guest():
 
@@ -167,3 +176,48 @@ def guest():
                                           lonk=len(daily),
                                           today=today,
                                           month=month)
+
+
+
+from models import User
+
+### LOGIN ###
+
+@login_manager.user_loader
+def load_user(user_id):
+    return getUser(user_id)       
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    incorrect_attempt = ""
+    # Here we use a class of some kind to represent and validate our
+    # client-side form data. For example, WTForms is a library that will
+    # handle this for us, and we use a custom LoginForm to validate.
+    if request.method == 'POST':
+
+        print("LOGIN DETAILS:")
+        print(escape(request.form['username']))
+        print(escape(request.form['password']))
+        session['username'] = escape(request.form['username'])
+        session['password'] = escape(request.form['password'])
+
+        user = User(username=session['username'])
+
+        if user.check_password(session['password']):    
+        # Login and validate the user.
+        # user should be an instance of your `User` class
+
+            login_user(user)
+
+            flash('Logged in successfully.')
+
+            next = request.args.get('next')
+            # is_safe_url should check if the url is safe for redirects.
+            # See http://flask.pocoo.org/snippets/62/ for an example.
+            if not escape(next):
+                return abort(400)
+
+            return redirect(next or url_for('home'))
+        else:
+            incorrect_attempt = "Wrong username/password!"
+    return render_template('login.html', incorrect_attempt=incorrect_attempt)                                   

@@ -100,8 +100,17 @@ def create_tables():
     month DATE);
     """
 
+    users = """
+    CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    username varchar(256),
+    password_hash varchar(256)
+    );
+    """
+
     execute_query_no_args(daily_goals)
     execute_query_no_args(monthly_goals)
+    execute_query_no_args(users)
 
 
 
@@ -248,3 +257,17 @@ def fetch_today():
     AND EXTRACT(YEAR FROM NOW()) = EXTRACT(YEAR FROM day)
     ORDER BY id LIMIT 1; """
     return execute_query_no_args(get)
+
+
+def get_password_hash(username):
+    get = """SELECT password_hash FROM users 
+    WHERE username = %s LIMIT 1;"""
+    return execute_query(get, (username,))
+
+def get_user_by_id(id):
+    get = """SELECT * FROM users WHERE id = %s LIMIT 1;"""
+    return execute_query(get, (id,))
+
+def get_user_by_name(name):
+    get = """SELECT * FROM users WHERE username = %s LIMIT 1;"""
+    return execute_query(get, (name,))

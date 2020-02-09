@@ -141,8 +141,8 @@
     var data = '{{data}}';
     var today_data = '{{today_data}}';
 
-    data = data.split("&#39;").join("\"");
-    today_data = today_data.split("&#39;").join("\"");
+    data = data.split("&#39;").join(""");
+    today_data = today_data.split("&#39;").join(""");
     
     data = JSON.parse(data);
     //today_data = JSON.parse(today_data);
