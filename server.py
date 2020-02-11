@@ -36,6 +36,8 @@ def convert_dates(e):
     e = list(e)
     e[4] = e[4].strftime("%Y-%m-%d")
 
+    print(e)
+
     return e
 
 
@@ -75,6 +77,24 @@ def home():
                                         month=month)
 
 
+
+
+
+@app.route('/update/day/specific', methods=['GET'])
+def mark_specific():
+
+    if (int(request.args.get('day', '-1')) == -1):
+        return redirect("/")
+
+    reading = request.args.get('reading', '0')
+    exercise = request.args.get('exercise', '0')
+    sleep = request.args.get('sleep', '0')
+    day = request.args.get('day', '-1')
+    
+
+    goaldb.update_day_specific(reading, exercise, sleep, day)
+
+    return redirect("/")
 
 
 

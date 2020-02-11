@@ -217,6 +217,17 @@ def update_day(reading, exercise, sleep):
     execute_query(update_daily, (reading, exercise, sleep))
 
 
+def update_day_specific(reading, exercise, sleep, day):
+
+    update_daily = """
+    UPDATE daily_goals 
+    SET reading=reading+%s, exercise=exercise+%s, proper_sleep=proper_sleep+%s
+    WHERE id = %s;  
+    """
+
+    execute_query(update_daily, (reading, exercise, sleep, day))
+
+
 
 def update_month(alcohol, meal, resist):
 

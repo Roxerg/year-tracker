@@ -14,20 +14,20 @@
         <!-- <canvas id="glCanvas" width="640" height="480"></canvas> -->
         
         <!-- TODAY MENU -->
-        <div class="container thing">Today</div>
+        <div id="today-title" class="container thing">Today</div>
 
         <div class="container">
-                <div class="pushbutton {{today[0]}}">
+                <div id="read-button" class="pushbutton {{today[0]}}">
                     <span class="foremoji span{{today[0]}}">
                         <a id="reading" href="/update/day?reading=15">📖</a>
                     </span>
                 </div>
-                <div class="pushbutton {{today[1]}}">
+                <div id="exercise-button" class="pushbutton {{today[1]}}">
                     <span class="foremoji span{{today[1]}}">
-                        <a id="reading" href="/update/day?exercise=15">🥊</a>
+                        <a id="exercise" href="/update/day?exercise=15">🥊</a>
                     </span>
                 </div>
-                <div class="pushbutton {{today[2]}}">
+                <div id="sleep-button" class="pushbutton {{today[2]}}">
                     <span class="foremoji span{{today[2]}}">
                         <a id="sleep" href="/update/day?sleep=23">💤</a>
                     </span>
@@ -65,12 +65,26 @@
                     </table>
                 </div>
         </div>
+
+        <div id="month-title" onclick="toggle_comments()" class="container thing">Day Comments</div> 
+        <div class="container thing" onclick="toggle_comments()" id="comment-arrow">▽</div>
+        <div id="day-desc" class="container hidden">
+                <br>
+                <span>---</span>
+                <br>
+                <br>
+                <button onclick="window.location.href = '/home';">Add Comment</button>
+                <br>
+                <br>
+        </div>
+        
         <!-- TODAY END -->
 
         <!-- MONTH MENU -->
-        <div class="container thing">Month</div>
+        <div id="month-title" onclick="toggle_months()" class="container thing">Month</div> 
+        <div class="container thing rotated" onclick="toggle_months()" id="month-arrow">▽</div>
 
-        <div class="container">
+        <div id="month-container" class="container">
                 <div class="pushbutton">
                     <span class="foremoji">
                         <a id="alcohol" href="/update/month?alcohol=1">🍺</a>
@@ -88,20 +102,23 @@
                 </div>
         </div>
 
-        <div class="container">
+        <div id="month-counter-container" class="container">
                 <div class="countercontainer">
-                    <span class="alcohol-count">{{month[1]}}</span>
+                    <span class="alcohol-count">{{ month[1] }}</span>
                 </div>
 
                 <div class="countercontainer">
-                    <span class="meal-count">{{month[2]}}</span>
+                    <span class="meal-count">{{ month[2] }}</span>
                 </div>
 
                 <div class="countercontainer">
-                    <span class="resist-count">{{month[3]}}</span>
+                    <span class="resist-count">{{ month[3] }}</span>
                 </div>
         </div>
         <!-- MONTH END -->
+
+
+        
 
         <!-- WEEK DISPLAY -->
         <div class="container thing">This Week</div>
@@ -118,8 +135,8 @@
         
         <div class="container">
             {% for d in range(0, lonk) %}
-                
-                <div class="item {{daily[d]}} {% if today_data[4] == data[d][4] %} year_today {% endif %}"><!--{/{data[d][0]}/}--></div>
+                <script>console.log('{{data[d]}}')</script>
+                <div id={{data[d][0]}} class="item {{daily[d]}} {% if today_data[4] == data[d][4] %} year_today todayfr {% endif %}"><!--{/{data[d][0]}/}--><span class="tooltiptext">{{data[d][4]}}</span></div>
             {% endfor %}
         </div>
         <!-- YEAR END -->
@@ -137,18 +154,116 @@
 
 <!-- DEBUG -->
 <script>
+
+
+    var root_update_url = "/update/day?";
+
+
     console.log('{{today}}');
     var data = '{{data}}';
     var today_data = '{{today_data}}';
 
-    data = data.split("&#39;").join(""");
-    today_data = today_data.split("&#39;").join(""");
+    data = data.split("&#39;").join("\"");
+    today_data = today_data.split("&#39;").join("\"");
     
     data = JSON.parse(data);
     //today_data = JSON.parse(today_data);
 
     console.log(data);
     console.log(today_data);
+
+    var day_items = document.getElementsByClassName("item");
+
+    
+
+    var on_day_click = function(e) {
+
+        if (e.target.classList.contains("item") && e.target.id) {
+            var day_info = document.getElementById("select-date");
+            //day_info.innerHTML = data[e.target.id-1][4];
+            if(e.target.classList.contains("todayfr")) {
+                document.getElementById("today-title").innerHTML = "Today";
+            }
+            else {
+                document.getElementById("today-title").innerHTML = data[e.target.id-1][4];
+                console.log(e.target.classList);
+            }
+            
+        }
+
+
+        var day_id = e.target.id;
+        //alert(data[day_id]);
+        console.log(data[day_id-1]);
+
+        var day_data = data[day_id-1];
+
+
+        root_update_url = "update/day/specific?day=" + day_id + "&";
+
+        var past_elem = document.getElementsByClassName('year_today');
+        if (past_elem[0]) {
+            past_elem[0].classList.remove('year_today');
+        }
+        
+
+        btn3 = document.getElementById("sleep-button");
+
+        if(day_data[3] == '0') {
+            btn3.classList.remove("checked")
+            btn3.classList.add("unchecked")
+        }
+        else {
+            btn3.classList.remove("unchecked")
+            btn3.classList.add("checked")
+        }
+
+        btn2 = document.getElementById("exercise-button");
+
+        if(day_data[2] == '0') {
+            btn2.classList.remove("checked")
+            btn2.classList.add("unchecked")
+        }
+        else {
+            btn2.classList.remove("unchecked")
+            btn2.classList.add("checked")
+        }
+
+
+        btn1 = document.getElementById("read-button");
+
+        if(day_data[1] == '0') {
+            btn1.classList.remove("checked")
+            btn1.classList.add("unchecked")
+        }
+        else {
+            btn1.classList.remove("unchecked")
+            btn1.classList.add("checked")
+        }
+
+        var elem1 = document.getElementById("reading");
+        elem1.href = root_update_url + "reading=15";
+
+        var elem2 = document.getElementById("exercise");
+        elem2.href = root_update_url + "exercise=15";
+
+        var elem3 = document.getElementById("sleep");
+        elem3.href = root_update_url + "sleep=15";
+
+        var new_elem = document.getElementById(day_id);
+        new_elem.classList.add('year_today');
+    }
+
+    var on_day_hover = function(e) {
+
+        
+    }
+
+    for (var i = 0; i < day_items.length; i++) {
+        day_items[i].addEventListener('click', on_day_click, false);
+        //day_items[i].addEventListener("mouseover", on_day_hover, false);
+    }
+
 </script>
 
 
@@ -162,8 +277,25 @@ function add_read(sign) {
     elem.innerHTML = val;
 
     elem = document.getElementById("reading");
-    elem.href = "/update/day?reading=" + val.toString();
 
+    elem.href = root_update_url + "reading=" + val.toString();
+
+    console.log(elem.href)
+
+}
+
+
+function toggle_months() {
+
+    document.getElementById("month-container").classList.toggle("hidden");
+    document.getElementById("month-counter-container").classList.toggle("hidden");
+    document.getElementById("month-arrow").classList.toggle("rotated");
+}
+
+function toggle_comments() {
+
+    document.getElementById("day-desc").classList.toggle("hidden");
+    document.getElementById("comment-arrow").classList.toggle("rotated");
 }
 
 function add_exercise(sign) {
@@ -173,7 +305,7 @@ function add_exercise(sign) {
     elem.innerHTML = val;
 
     elem = document.getElementById("exercise");
-    elem.href = "/update/day?exercise=" + val.toString();
+    elem.href = root_update_url + "exercise=" + val.toString();
 
 }
 
@@ -184,14 +316,14 @@ function add_sleep(sign) {
     elem.innerHTML = val;
 
     elem = document.getElementById("sleep");
-    elem.href = "/update/day?sleep=" + val.toString();
+    elem.href = root_update_url + "sleep=" + val.toString();
 
 }
 
 
 
 </script>
-
+<!--
 <script>
         /*============= Creating a canvas ======================*/
         var canvas = document.getElementById('glCanvas');
